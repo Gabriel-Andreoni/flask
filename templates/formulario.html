@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='formulario.css') }}">
+    <title>Calculadora de salário líquido</title>
+</head>
+<body>
+    <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+    <div class="page-shell">
+        <header class="site-header">
+            <a class="brand" href="{{ url_for('home') }}" aria-label="Calculadora de salário — início">
+                <svg class="brand-mark" viewBox="0 0 32 32" fill="none" aria-hidden="true"><rect x="1" y="1" width="30" height="30" rx="8" fill="currentColor"/><path d="M9 11h14M9 16h14M9 21h8" stroke="var(--paper)" stroke-width="2" stroke-linecap="round"/></svg>
+                <span>Conta clara<span class="brand-caption">Calculadora de salário</span></span>
+            </a>
+            <span class="header-note">Seu salário, em detalhes.</span>
+        </header>
+        <main id="conteudo" class="calculator-layout">
+            <section class="introduction" aria-labelledby="page-title">
+                <h1 id="page-title">Entenda o que<br>fica <em>para você.</em></h1>
+                <p class="intro-text">Do salário bruto ao líquido: veja os descontos e o bônus por dependentes em uma conta simples.</p>
+                <div class="calculation-path" aria-label="Como o cálculo funciona">
+                    <span>Salário bruto</span><span class="path-symbol" aria-hidden="true">−</span><span>Descontos</span><span class="path-symbol" aria-hidden="true">+</span><span>Bônus</span>
+                </div>
+                <p class="intro-note">Mais clareza para olhar seus números.</p>
+            </section>
+            <section class="form-panel" aria-labelledby="form-title">
+                <h2 id="form-title">Vamos fazer as contas?</h2>
+                <p class="panel-description">Informe os dados abaixo para calcular.</p>
+                <form class="form-wrapper" action="{{ url_for('result') }}" method="post">
+                    <div class="field">
+                        <label for="salarioBruto">Salário bruto</label>
+                        <div class="money-input">
+                            <span aria-hidden="true">R$</span>
+                            <input type="number" name="salary" id="salarioBruto" min="0" step="0.01" inputmode="decimal" placeholder="0,00" required aria-describedby="salary-hint">
+                        </div>
+                        <p class="field-hint" id="salary-hint">Valor mensal, antes dos descontos, em reais.</p>
+                    </div>
+                    <div class="field">
+                        <label for="numberDependents">Número de dependentes</label>
+                        <input type="number" name="dependentsNumber" id="numberDependents" min="0" step="1" inputmode="numeric" value="0" required aria-describedby="dependents-hint">
+                        <p class="field-hint" id="dependents-hint">Se não tiver dependentes, mantenha o zero.</p>
+                    </div>
+                    <button class="button button-primary" type="submit">Calcular meu salário<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                </form>
+                <p class="panel-footnote">O próximo passo mostra o detalhamento do cálculo.</p>
+            </section>
+        </main>
+        <footer class="site-footer"><span>Uma conta. Mais clareza.</span><span>Simulação com as regras desta calculadora.</span></footer>
+    </div>
+</body>
+</html>

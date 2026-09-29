@@ -1,0 +1,55 @@
+{% macro reais(value) -%}
+    {{ "{:,.2f}".format(value)|replace(",", "_")|replace(".", ",")|replace("_", ".") }}
+{%- endmacro %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='formulario.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='resultado.css') }}">
+    <title>Seu resultado — Calculadora de salário líquido</title>
+</head>
+<body>
+    <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+    <div class="page-shell">
+        <header class="site-header">
+            <a class="brand" href="{{ url_for('home') }}" aria-label="Calculadora de salário — início">
+                <svg class="brand-mark" viewBox="0 0 32 32" fill="none" aria-hidden="true"><rect x="1" y="1" width="30" height="30" rx="8" fill="currentColor"/><path d="M9 11h14M9 16h14M9 21h8" stroke="var(--paper)" stroke-width="2" stroke-linecap="round"/></svg>
+                <span>Conta clara<span class="brand-caption">Calculadora de salário</span></span>
+            </a>
+            <span class="header-note">Seu salário, em detalhes.</span>
+        </header>
+        <main id="conteudo" class="result-main">
+            <a class="back-link" href="{{ url_for('home') }}"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M19 12H5m6-6-6 6 6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Voltar à calculadora</a>
+            {% if salary is defined %}
+            <div class="result-heading"><h1>Seu salário, às claras.</h1><p>Veja como chegamos ao valor que fica para você.</p></div>
+            <div class="result-layout">
+                <section class="net-panel" aria-labelledby="net-title">
+                    <div class="result-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="m6 12 4 4 8-8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                    <h2 id="net-title">Salário líquido</h2>
+                    <p class="net-value"><span>R$</span> {{ reais(liquidSalary) }}</p>
+                    <p class="net-description">Valor mensal após os descontos e o bônus por dependentes.</p>
+                    <div class="net-summary"><span>Dependentes informados</span><strong>{{ dependentsNumber }}</strong></div>
+                    <a class="button button-light" href="{{ url_for('home') }}">Fazer novo cálculo<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+                </section>
+                <section class="breakdown" aria-labelledby="breakdown-title">
+                    <h2 id="breakdown-title">Por dentro do cálculo</h2>
+                    <dl class="amount-list">
+                        <div class="amount-row"><dt>Salário bruto<span>O ponto de partida</span></dt><dd>R$ {{ reais(salary) }}</dd></div>
+                        <div class="amount-row"><dt>Contribuição INSS<span>8% do salário bruto</span></dt><dd class="deduction">− R$ {{ reais(INSSDiscount) }}</dd></div>
+                        <div class="amount-row"><dt>Imposto de renda<span>{{ '15% do salário bruto' if salary > 2500 else 'Sem desconto nesta faixa' }}</span></dt><dd class="deduction">− R$ {{ reais(taxes) }}</dd></div>
+                        <div class="amount-row"><dt>Bônus por dependentes<span>R$ 200,00 por dependente</span></dt><dd class="addition">+ R$ {{ reais(bonusPerChild) }}</dd></div>
+                        <div class="amount-row amount-total"><dt>Salário líquido</dt><dd>R$ {{ reais(liquidSalary) }}</dd></div>
+                    </dl>
+                    <p class="calculation-note">Simulação com as regras desta calculadora: INSS de 8%, imposto de 15% para salários acima de R$ 2.500,00 e bônus de R$ 200,00 por dependente.</p>
+                </section>
+            </div>
+            {% else %}
+            <section class="empty-result"><h1>Vamos começar pelos seus dados.</h1><p>Preencha o formulário para calcular seu salário e ver o resultado aqui.</p><a class="button button-primary" href="{{ url_for('home') }}">Ir para a calculadora</a></section>
+            {% endif %}
+        </main>
+        <footer class="site-footer"><span>Uma conta. Mais clareza.</span><span>Simulação com as regras desta calculadora.</span></footer>
+    </div>
+</body>
+</html>

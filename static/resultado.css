@@ -1,0 +1,50 @@
+/* Estilos do resultado; a base visual vem de formulario.css. */
+.result-main { flex: 1; padding-block: 32px 60px; }
+.back-link { display: inline-flex; align-items: center; gap: 9px; min-height: 44px; font-size: 13px; text-decoration: none; color: var(--muted); }
+.back-link svg { width: 17px; height: 17px; }
+.back-link:hover { color: var(--green); text-decoration: underline; }
+.result-heading { margin-top: 22px; margin-bottom: 36px; }
+.result-heading h1, .empty-result h1 { font: 400 clamp(40px, 4.4vw, 58px)/1.08 "Libre Caslon Display", Georgia, serif; letter-spacing: -.025em; }
+.result-heading p { margin-top: 12px; color: var(--muted); }
+.result-layout { display: grid; grid-template-columns: 1fr 1.15fr; gap: clamp(36px, 6vw, 80px); align-items: start; }
+.net-panel { min-width: 0; background: var(--green); color: var(--paper); border-radius: var(--radius); padding: 36px; animation: settle-in 550ms cubic-bezier(.16, 1, .3, 1); }
+.result-check { width: 36px; height: 36px; display: grid; place-items: center; border: 1px solid #779780; border-radius: 50%; color: var(--accent); margin-bottom: 28px; }
+.result-check svg { width: 22px; height: 22px; }
+.net-panel h2 { font-size: 16px; font-weight: 400; color: #e0e8d5; }
+.net-value { margin-top: 8px; font-size: clamp(30px, 3.6vw, 48px); font-weight: 700; letter-spacing: -.035em; line-height: 1.2; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.net-value > span { font-size: 22px; font-weight: 400; color: var(--accent); letter-spacing: 0; }
+.net-description { margin-top: 20px; max-width: 32ch; color: #e0e8d5; font-size: 14px; }
+.net-summary { display: flex; justify-content: space-between; gap: 16px; border-top: 1px solid #63816b; margin-top: 32px; padding-top: 20px; font-size: 13px; color: #e0e8d5; }
+.net-summary strong { color: var(--paper); font-size: 16px; }
+.button-light { width: 100%; margin-top: 24px; background: var(--accent); color: var(--ink); }
+.button-light:hover { background: #eef5ce; }
+.button-light:focus-visible { outline-color: var(--accent); }
+.breakdown { padding-top: 4px; min-width: 0; }
+.breakdown h2 { font-size: 21px; font-weight: 700; letter-spacing: -.02em; }
+.amount-list { margin: 12px 0 0; font-variant-numeric: tabular-nums; }
+.amount-row { display: flex; justify-content: space-between; align-items: center; gap: 20px; padding-block: 19px; border-bottom: 1px solid var(--line); }
+.amount-row dt { font-size: 14px; }
+.amount-row dt span { display: block; margin-top: 3px; font-size: 12px; color: var(--muted); }
+.amount-row dd { margin: 0; font-size: 15px; font-weight: 700; text-align: right; overflow-wrap: anywhere; min-width: 0; }
+.deduction { color: #8d493c; }
+.addition { color: var(--green); }
+.amount-total { border-bottom: 0; padding-block: 22px 12px; }
+.amount-total dt, .amount-total dd { font-weight: 700; font-size: 17px; }
+.calculation-note { border-top: 1px solid var(--line); padding-top: 16px; margin-top: 12px; color: var(--muted); font-size: 12px; max-width: 65ch; }
+.empty-result { max-width: 600px; margin: 64px auto; }
+.empty-result p { margin-block: 24px; color: var(--muted); }
+@media (max-width: 800px) {
+    .result-main { padding-block: 20px 44px; }
+    .result-heading { margin-top: 16px; margin-bottom: 28px; }
+    .result-layout { grid-template-columns: 1fr; gap: 32px; }
+    .net-panel { padding: 28px; }
+    .net-value { font-size: clamp(32px, 8vw, 48px); }
+    .result-check { margin-bottom: 20px; }
+    .net-description { max-width: 42ch; }
+}
+@media (max-width: 440px) {
+    .net-panel { padding: 24px; }
+    .amount-row { gap: 12px; }
+    .amount-row dd { font-size: 14px; }
+    .amount-total dd { font-size: 16px; }
+}
